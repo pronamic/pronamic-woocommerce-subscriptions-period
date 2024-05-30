@@ -4,4 +4,6 @@ This “Woo Subscriptions” add-on ensures that a period is saved with each sub
 
 ## Links
 
+- https://github.com/pronamic/woocommerce-subscriptions
+- https://github.com/Automattic/woocommerce-subscriptions-core/
 - https://github.com/pronamic/woocommerce-subscriptions/issues/10
