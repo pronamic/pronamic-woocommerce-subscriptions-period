@@ -1,0 +1,29 @@
+{
+	"name": "@pronamic/wp-pronamic-woocommerce-subscriptions-period",
+	"version": "1.0.0",
+	"description": "This “Woo Subscriptions” add-on ensures that a period is saved with each subscription order.",
+	"author": "Pronamic",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"pronamic",
+		"pronamic-pay",
+		"woo",
+		"woocommerce",
+		"woocommerce-subscriptions"
+	],
+	"homepage": "https://github.com/pronamic/pronamic-woocommerce-subscriptions-period#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/pronamic/pronamic-woocommerce-subscriptions-period.git"
+	},
+	"bugs": {
+		"url": "https://github.com/pronamic/pronamic-woocommerce-subscriptions-period/issues"
+	},
+	"devDependencies": {
+		"@wordpress/env": "^9.9.0",
+		"@wordpress/scripts": "^27.8.0"
+	},
+	"scripts": {
+		"lint:pkg-json": "wp-scripts lint-pkg-json"
+	}
+}

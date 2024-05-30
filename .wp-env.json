@@ -1,0 +1,16 @@
+{
+	"core": null,
+	"plugins": [
+		"pronamic/wp-env-quick-login",
+		"pronamic/woocommerce-subscriptions",
+		"https://downloads.wordpress.org/plugin/code-profiler.zip",
+		"https://downloads.wordpress.org/plugin/plugin-check.1.0.1.zip",
+		"https://downloads.wordpress.org/plugin/pronamic-client.zip",
+		"https://downloads.wordpress.org/plugin/query-monitor.zip",
+		"https://downloads.wordpress.org/plugin/woocommerce.zip"
+	],
+	"mappings": {
+		"wp-content/plugins/pronamic-woocommerce-subscriptions-period-dev": "./",
+		"wp-content/plugins/pronamic-woocommerce-subscriptions-period": "./build/project/"
+	}
+}
