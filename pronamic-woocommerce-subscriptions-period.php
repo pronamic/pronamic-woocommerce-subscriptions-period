@@ -32,6 +32,7 @@ namespace Pronamic\WooSubscriptionsPeriod;
 use DateTimeImmutable;
 use DateTimeZone;
 use WC_Order;
+use WC_Subscription;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -66,8 +67,6 @@ final class Plugin {
 
 		\add_filter( 'woocommerce_order_item_display_meta_key', [ $this, 'woocommerce_order_item_display_meta_key' ], 10, 2 );
 		\add_filter( 'woocommerce_order_item_display_meta_value', [ $this, 'woocommerce_order_item_display_meta_value' ], 10, 2 );
-
-		\add_filter( 'woocommerce_order_again_cart_item_data', [ $this, 'woocommerce_order_again_cart_item_data' ], 10, 2 );
 
 		\add_filter( 'wcs_renewal_order_created', [ $this, 'wcs_renewal_order_created' ], 10, 2 );
 	}
@@ -233,33 +232,61 @@ final class Plugin {
 	}
 
 	/**
-	 * WooCommerce order again cart item data.
+	 * WooCommerce checkout create subscription.
 	 * 
-	 * @link https://github.com/Automattic/woocommerce-subscriptions-core/blob/5.9.0/includes/class-wcs-cart-renewal.php#L345
-	 * @param array         $item_data Cart item data.
-	 * @param WC_Order_Item $line_item Order line item.
-	 * @return array
+	 * This action is initiated when a subscription is created for an order in
+	 * the WooCommerce checkout process. This action is called in the
+	 * `WC_Subscriptions_Checkout::process_checkout( $order_id, $posted_data )`
+	 * function, which is hooked into the WooCommerce action
+	 * `woocommerce_checkout_order_processed`.
+	 * 
+	 * We use this action to update the order items with the period information 
+	 * from the WooCommerce subscription object.
+	 * 
+	 * @link https://github.com/Automattic/woocommerce-subscriptions-core/blob/7.1.1/includes/class-wc-subscriptions-checkout.php#L246-L247
+	 * @param WC_Subscription $subscription Subscription.
+	 * @param array           $posted_data  Posted data.
+	 * @param WC_Order        $order        Order.
+	 * @return void
 	 */
-	public function woocommerce_order_again_cart_item_data( $item_data, $line_item ) {
-		$start_date = (string) $line_item->get_meta( '_pronamic_start_date' );
-
-		if ( '' !== $start_date ) {
-			$item_data['_pronamic_start_date'] = $start_date;
-		}
-
-		$end_date = (string) $line_item->get_meta( '_pronamic_end_date' );
-
-		if ( '' !== $end_date ) {
-			$item_data['_pronamic_end_date'] = $end_date;
-		}
-
-		return $item_data;
-	}
-
 	public function woocommerce_checkout_create_subscription( $subscription, $posted_data, $order, $cart ) {
 		$this->update_order_items_meta( $subscription, $order, 'date_created' );
 	}
 
+	/**
+	 * WooCommerce Subscriptions renewal order created.
+	 * 
+	 * This filter is called when a subscription renewal order is created.
+	 * This happens, for example, when a renewal order is created via the
+	 * Action Scheduler library on the next payment date of a subscription.
+	 * 
+	 * We use this filter to update the order items with the period information 
+	 * from the WooCommerce subscription object.
+	 * 
+	 * @link https://github.com/Automattic/woocommerce-subscriptions-core/blob/7.1.1/includes/wcs-renewal-functions.php#L38
+	 * @param WC_Order        $renewal_order Renewal order.
+	 * @param WC_Subscription $subscription Subscription.
+	 * @return WC_Order
+	 */ 
+	public function wcs_renewal_order_created( $renewal_order, $subscription ) {
+		$this->update_order_items_meta( $subscription, $renewal_order );
+
+		return $renewal_order;
+	}
+
+	/**
+	 * Update order items meta.
+	 * 
+	 * This function checks the subscription items and looks for a match in the
+	 * order items. If a match is found, the order item will be provided with
+	 * period information based on the time information from the subscription.
+	 * For a new subscription 'date_created' can be used, for a renewal order
+	 * 'next_payment' can be used.
+	 * 
+	 * @param WC_Subscription $subscription Subscription.
+	 * @param WC_Order        $order        Order.
+	 * @return void
+	 */
 	private function update_order_items_meta( $subscription, $order, $date_type = 'next_payment' ) {
 		foreach ( $subscription->get_items() as $subscription_item ) {
 			$subscription_item_product_id = \wcs_get_canonical_product_id( $subscription_item );
@@ -281,12 +308,17 @@ final class Plugin {
 		$order->save();
 	}
 
-	public function wcs_renewal_order_created( $renewal_order, $subscription ) {
-		$this->update_order_items_meta( $subscription, $renewal_order );
-
-		return $renewal_order;
-	}
-
+	/**
+	 * Get period.
+	 * 
+	 * This function makes it possible to request a period for a subscription.
+	 * The period can be based on, for example, 'date_created' or the
+	 * 'next_payment' time.
+	 * 
+	 * @param WC_Subscription $subscription Subscription.
+	 * @param string          $date_type    Date type.
+	 * @return object|null
+	 */
 	private function get_period( $subscription, $date_type = 'next_payment' ) {
 		$timestamp_1 = $subscription->get_time( $date_type );
 
