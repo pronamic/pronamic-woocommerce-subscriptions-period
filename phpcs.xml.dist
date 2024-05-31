@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<ruleset name="Pronamic period information for Woo Subscriptions">
+	<file>.</file>
+
+	<exclude-pattern type="relative">^build/*</exclude-pattern>
+	<exclude-pattern type="relative">^node_modules/*</exclude-pattern>
+	<exclude-pattern type="relative">^packages/*</exclude-pattern>
+	<exclude-pattern type="relative">^vendor/*</exclude-pattern>
+	<exclude-pattern type="relative">^wordpress/*</exclude-pattern>
+	<exclude-pattern type="relative">^wp-content/*</exclude-pattern>
+
+	<rule ref="PronamicWP">
+
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="pronamic-woocommerce-subscriptions-period" />
+			</property>
+		</properties>
+	</rule>
+</ruleset>
