@@ -51,6 +51,12 @@ _Screenshot of the WooCommerce order detail page in the WordPress admin dashboar
 
 _Screenshot of the WooCommerce checkout page where a customer manually renews a subscription (early) and the period is visible._
 
+## Tested flows
+
+1. Frontend: My account → My Subscription → Actions → Renew now
+2. Background: Automatic renewal order via the Action Scheduler library.
+3. Backend: WooCommerce → Subscriptions → Edit Subscription → Order actions → Create pending renewal order
+
 # Accounting programs
 
 Certain accounting programs offer the option to define a period for invoice lines. In this way, an accounting program can automatically distribute the amounts over a period. This can be used for “Prepaid expenses” and “Deferred revenue” on the balance sheet.
