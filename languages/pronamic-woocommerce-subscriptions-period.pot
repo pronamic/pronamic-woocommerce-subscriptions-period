@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-31T10:42:39+00:00\n"
+"POT-Creation-Date: 2024-05-31T12:34:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pronamic-woocommerce-subscriptions-period\n"
@@ -39,12 +39,12 @@ msgstr ""
 msgid "https://www.pronamic.eu/"
 msgstr ""
 
-#: pronamic-woocommerce-subscriptions-period.php:151
-#: pronamic-woocommerce-subscriptions-period.php:210
+#: src/Plugin.php:130
+#: src/Plugin.php:189
 msgid "Start date"
 msgstr ""
 
-#: pronamic-woocommerce-subscriptions-period.php:162
-#: pronamic-woocommerce-subscriptions-period.php:212
+#: src/Plugin.php:141
+#: src/Plugin.php:191
 msgid "End date"
 msgstr ""

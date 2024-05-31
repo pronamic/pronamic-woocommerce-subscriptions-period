@@ -2,10 +2,12 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pronamic period information for Woo Subscriptions 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pronamic-woocommerce-subscriptions-period\n"
-"POT-Creation-Date: 2024-05-31T10:42:39+00:00\n"
-"PO-Revision-Date: 2024-05-31 12:45+0200\n"
+"Project-Id-Version: Pronamic period information for Woo Subscriptions "
+"1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pronamic-"
+"woocommerce-subscriptions-period\n"
+"POT-Creation-Date: 2024-05-31T12:34:22+00:00\n"
+"PO-Revision-Date: 2024-05-31 14:34+0200\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -22,13 +24,21 @@ msgstr "Pronamic period information for Woo Subscriptions"
 
 #. Plugin URI of the plugin
 #: pronamic-woocommerce-subscriptions-period.php
-msgid "https://www.pronamic.eu/plugins/pronamic-woocommerce-subscriptions-period/"
-msgstr "https://www.pronamic.eu/plugins/pronamic-woocommerce-subscriptions-period/"
+msgid ""
+"https://www.pronamic.eu/plugins/pronamic-woocommerce-subscriptions-"
+"period/"
+msgstr ""
+"https://www.pronamic.eu/plugins/pronamic-woocommerce-subscriptions-"
+"period/"
 
 #. Description of the plugin
 #: pronamic-woocommerce-subscriptions-period.php
-msgid "This “Woo Subscriptions” add-on ensures that a period is saved with each subscription order."
-msgstr "Deze “Woo Subscriptions” add-on zorgt ervoor dat er bij elke abonnementsbestelling een periode wordt opgeslagen."
+msgid ""
+"This “Woo Subscriptions” add-on ensures that a period is saved with each "
+"subscription order."
+msgstr ""
+"Deze “Woo Subscriptions” add-on zorgt ervoor dat er bij elke "
+"abonnementsbestelling een periode wordt opgeslagen."
 
 #. Author of the plugin
 #: pronamic-woocommerce-subscriptions-period.php
@@ -40,12 +50,10 @@ msgstr "Pronamic"
 msgid "https://www.pronamic.eu/"
 msgstr "https://www.pronamic.nl/"
 
-#: pronamic-woocommerce-subscriptions-period.php:151
-#: pronamic-woocommerce-subscriptions-period.php:210
+#: src/Plugin.php:130 src/Plugin.php:189
 msgid "Start date"
 msgstr "Startdatum"
 
-#: pronamic-woocommerce-subscriptions-period.php:162
-#: pronamic-woocommerce-subscriptions-period.php:212
+#: src/Plugin.php:141 src/Plugin.php:191
 msgid "End date"
 msgstr "Einddatum"
