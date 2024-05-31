@@ -1,0 +1,4 @@
+# Pronamic build ignore
+/.pronamic-build-ignore
+
+/build/
