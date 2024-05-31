@@ -56,54 +56,162 @@ final class Plugin {
 	 * @return void
 	 */
 	public function init() {
-		if ( \is_admin() ) {
-			\add_action( 'add_meta_boxes', [ $this, 'maybe_add_pronamic_meta_box_to_wc_order' ], 10, 2 );
-		}
-
 		\add_filter( 'wcs_new_order_created', [ $this, 'wcs_new_order_created' ], 10, 2 );
 
-		\add_filter( 'wcs_renewal_order_created2', function( $id, $test ) {
-			echo 'hoi';exit;
-		}, 10, 2 );
-
 		\add_action( 'woocommerce_checkout_update_order_meta', [ $this, 'woocommerce_checkout_update_order_meta'] );
+
+		\add_filter( 'woocommerce_add_cart_item_data', [ $this, 'woocommerce_add_cart_item_data' ], 30, 3 );
+
+		\add_filter( 'woocommerce_get_item_data', [ $this, 'woocommerce_get_item_data' ], 10, 2 );
+
+		\add_action( 'woocommerce_checkout_create_order_line_item', [ $this, 'woocommerce_checkout_create_order_line_item' ], 20, 3 );
+
+		\add_filter( 'woocommerce_order_item_display_meta_key', [ $this, 'woocommerce_order_item_display_meta_key' ], 10, 2 );
+
+		\add_filter( 'woocommerce_order_again_cart_item_data', [ $this, 'woocommerce_order_again_cart_item_data' ], 10, 2 );
 	}
 
+	/**
+	 * WooCommerce add cart item data.
+	 *  
+	 * This filter function is called as soon as a WooCommerce product is added to the cart.
+	 * 
+	 * @link https://github.com/woocommerce/woocommerce/blob/7.7.0/plugins/woocommerce/includes/class-wc-cart.php#L1137-L1138
+	 * @param array $cart_item_data WooCommerce cart item data.
+	 * @param int   $product_id     Product ID.
+	 * @param int   $variation_id   Variation ID.
+	 * @return array
+	 */
+	public function woocommerce_add_cart_item_data( $cart_item_data, $product_id, $variation_id ) {
+		if ( ! \array_key_exists( 'subscription_renewal', $cart_item_data ) ) {
+			return $cart_item_data;
+		}
+
+		$subscription_renewal_data = $cart_item_data['subscription_renewal'];
+
+		if ( ! \is_array( $subscription_renewal_data ) ) {
+			return $cart_item_data;
+		}
+
+		if ( ! \array_key_exists( 'subscription_id', $subscription_renewal_data ) ) {
+			return $cart_item_data;
+		}
+
+		$subscription_id = $subscription_renewal_data['subscription_id'];
+
+		$subscription = \wcs_get_subscription( $subscription_id );
+
+		if ( false === $subscription ) {
+			return $cart_item_data;
+		}
+
+		$period = $this->get_next_period( $subscription );
+
+		if ( null === $period ) {
+			return $cart_item_data;
+		}
+
+		$cart_item_data['_pronamic_start_date'] = $period->start_date->format( 'Y-m-d H:i:s' );
+		$cart_item_data['_pronamic_end_date']   = $period->end_date->format( 'Y-m-d H:i:s' );
+
+		return $cart_item_data;
+	}
 
 	/**
-	 * Maybe add a Pronamic meta box the WooCommerce order.
+	 * WooCommerce get item data.
 	 * 
-	 * @link https://github.com/pronamic/wp-pronamic-pay-woocommerce/issues/41
-	 * @link https://developer.wordpress.org/reference/hooks/add_meta_boxes/
-	 * @param string           $post_type_or_screen_id Post type or screen ID.
-	 * @param WC_Order|WP_Post $post_or_order_object   Post or order object.
+	 * This filter function is called to get a list of cart item data + variations for display on the frontend.
+	 *
+	 * @link https://github.com/woocommerce/woocommerce/blob/7.7.0/plugins/woocommerce/includes/wc-template-functions.php#L3774-L3775
+	 * @param array $item_data Item data to display.
+	 * @param array $cart_item Cart item object.
+	 */
+	public function woocommerce_get_item_data( $item_data, $cart_item ) {
+		if ( \array_key_exists( '_pronamic_start_date', $cart_item ) ) {
+			$start_date_string = $cart_item['_pronamic_start_date'];
+
+			$item_data[] = [
+				'key'   => \__( 'Start date', 'pronamic-woocommerce-subscriptions-period' ),
+				'value' => $start_date_string,
+			];
+		}
+
+		if ( \array_key_exists( '_pronamic_end_date', $cart_item ) ) {
+			$end_date_string = $cart_item['_pronamic_end_date'];
+
+			$item_data[] = [
+				'key'   => \__( 'End date', 'pronamic-woocommerce-subscriptions-period' ),
+				'value' => $end_date_string,
+			];
+		}
+
+		return $item_data;
+	}
+
+	/**
+	 * WooCommerce checkout create order line item.
+	 * 
+	 * This action function is called when order items are created from the cart.
+	 * 
+	 * @link https://github.com/woocommerce/woocommerce/blob/7.7.0/plugins/woocommerce/includes/class-wc-checkout.php#L544-L549
+	 * @param WC_Order_Item $item          WooCommerce order item.
+	 * @param string        $cart_item_key Cart item key.
+	 * @param array         $values        Cart item values.
 	 * @return void
 	 */
-	public function maybe_add_pronamic_meta_box_to_wc_order( $post_type_or_screen_id, $post_or_order_object ) {
-		if ( ! \in_array( $post_type_or_screen_id, [ 'shop_order', 'woocommerce_page_wc-orders' ], true ) ) {
-			return;
+	public function woocommerce_checkout_create_order_line_item( $item, $cart_item_key, $values ) {
+		if ( \array_key_exists( '_pronamic_start_date', $values ) ) {
+			$item->update_meta_data( '_pronamic_start_date', $values['_pronamic_start_date'] );
 		}
 
-		$order = $post_or_order_object instanceof WC_Order ? $post_or_order_object : \wc_get_order( $post_or_order_object->ID );
+		if ( \array_key_exists( '_pronamic_end_date', $values ) ) {
+			$item->update_meta_data( '_pronamic_end_date', $values['_pronamic_end_date'] );
+		}
+	}
 
-		if ( ! $order instanceof WC_Order ) {
-			return;
+	/**
+	 * WooCommerce order item display meta key.
+	 * 
+	 * This filter function is called when order item meta is displayed.
+	 * 
+	 * @link https://github.com/woocommerce/woocommerce/blob/7.7.0/plugins/woocommerce/includes/class-wc-order-item.php#L301
+	 * @param string $display_key Display key.
+	 * @param object $meta        Meta object.
+	 * @return string
+	 */
+	public function woocommerce_order_item_display_meta_key( $display_key, $meta ) {
+		switch ( $meta->key ) {
+			case '_pronamic_start_date':
+				return \__( 'Start date', 'pronamic-woocommerce-subscriptions-period' );
+			case '_pronamic_end_date':
+				return \__( 'End date', 'pronamic-woocommerce-subscriptions-period' );
+			default:
+				return $display_key;
+		}
+	}
+
+	/**
+	 * WooCommerce order again cart item data.
+	 * 
+	 * @link https://github.com/Automattic/woocommerce-subscriptions-core/blob/5.9.0/includes/class-wcs-cart-renewal.php#L345
+	 * @param array         $item_data Cart item data.
+	 * @param WC_Order_Item $line_item Order line item.
+	 * @return array
+	 */
+	public function woocommerce_order_again_cart_item_data( $item_data, $line_item ) {
+		$start_date = (string) $line_item->get_meta( '_pronamic_start_date' );
+
+		if ( '' !== $start_date ) {
+			$item_data['_pronamic_start_date'] = $start_date;
 		}
 
-		\add_meta_box(
-			'woocommerce-order-pronamic-period',
-			\__( 'Period', 'pronamic-woocommerce-subscriptions-period' ),
-			function () use ( $order ) {
-				$start_date = $order->get_meta( '_pronamic_period_start_date' );
-				$end_date   = $order->get_meta( '_pronamic_period_end_date' );
+		$end_date = (string) $line_item->get_meta( '_pronamic_end_date' );
 
-				var_dump( $start_date );
-				var_dump( $end_date );
-			},
-			$post_type_or_screen_id,
-			'side',
-			'default'
-		);
+		if ( '' !== $end_date ) {
+			$item_data['_pronamic_end_date'] = $end_date;
+		}
+
+		return $item_data;
 	}
 
 	/**
@@ -116,16 +224,18 @@ final class Plugin {
 	 * @return WC_Order
 	 */
 	public function wcs_new_order_created( $new_order, $subscription ) {
+		var_dump( $new_order );
+		exit;
 		$this->update_period_meta( $new_order, $subscription );
 
 		return $new_order;
 	}
 
-	private function update_period_meta( $order, $subscription ) {
+	private function get_next_period( $subscription ) {
 		$next_payment_date_timestamp_1 = $subscription->get_time( 'next_payment' );
 
 		if ( 0 === $next_payment_date_timestamp_1 ) {
-			return;
+			return null;
 		} 
 
 		$next_payment_date_timestamp_2 = \wcs_add_time(
@@ -137,8 +247,21 @@ final class Plugin {
 		$start_date = new DateTimeImmutable( '@' . $next_payment_date_timestamp_1, new DateTimeZone( 'UTC' ) );
 		$end_date   = new DateTimeImmutable( '@' . $next_payment_date_timestamp_2, new DateTimeZone( 'UTC' ) );
 
-		$order->update_meta_data( '_pronamic_period_start_date', $start_date->format( 'Y-m-d H:i:s' ) );
-		$order->update_meta_data( '_pronamic_period_end_date', $end_date->format( 'Y-m-d H:i:s' ) );
+		return (object) [
+			'start_date' => $start_date,
+			'end_date'   => $end_date,
+		];
+	}
+
+	private function update_period_meta( $order, $subscription ) {
+		$period = $this->get_next_period( $subscription );
+
+		if ( null === $period ) {
+			return;
+		}
+
+		$order->update_meta_data( '_pronamic_period_start_date', $period->start_date->format( 'Y-m-d H:i:s' ) );
+		$order->update_meta_data( '_pronamic_period_end_date', $period->end_date->format( 'Y-m-d H:i:s' ) );
 
 		$order->save();
 
