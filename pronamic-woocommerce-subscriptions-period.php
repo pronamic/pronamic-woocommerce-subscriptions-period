@@ -57,11 +57,11 @@ final class Plugin {
 	 * @return void
 	 */
 	public function init() {
-		\add_filter( 'woocommerce_add_cart_item_data', [ $this, 'woocommerce_add_cart_item_data' ], 30, 3 );
+		\add_filter( 'woocommerce_add_cart_item_data', [ $this, 'woocommerce_add_cart_item_data' ], 30, 1 );
 
 		\add_filter( 'woocommerce_get_item_data', [ $this, 'woocommerce_get_item_data' ], 10, 2 );
 
-		\add_action( 'woocommerce_checkout_create_subscription', [ $this, 'woocommerce_checkout_create_subscription' ], 10, 4 );
+		\add_action( 'woocommerce_checkout_create_subscription', [ $this, 'woocommerce_checkout_create_subscription' ], 10, 3 );
 
 		\add_action( 'woocommerce_checkout_create_order_line_item', [ $this, 'woocommerce_checkout_create_order_line_item' ], 20, 3 );
 
@@ -78,11 +78,9 @@ final class Plugin {
 	 * 
 	 * @link https://github.com/woocommerce/woocommerce/blob/7.7.0/plugins/woocommerce/includes/class-wc-cart.php#L1137-L1138
 	 * @param array $cart_item_data WooCommerce cart item data.
-	 * @param int   $product_id     Product ID.
-	 * @param int   $variation_id   Variation ID.
 	 * @return array
 	 */
-	public function woocommerce_add_cart_item_data( $cart_item_data, $product_id, $variation_id ) {
+	public function woocommerce_add_cart_item_data( $cart_item_data ) {
 		/**
 		 * In the case of a subscription renewal we will try to add the period information to the cart items.
 		 */
@@ -249,7 +247,7 @@ final class Plugin {
 	 * @param WC_Order        $order        Order.
 	 * @return void
 	 */
-	public function woocommerce_checkout_create_subscription( $subscription, $posted_data, $order, $cart ) {
+	public function woocommerce_checkout_create_subscription( $subscription, $posted_data, $order ) {
 		$this->update_order_items_meta( $subscription, $order, 'date_created' );
 	}
 
@@ -285,6 +283,7 @@ final class Plugin {
 	 * 
 	 * @param WC_Subscription $subscription Subscription.
 	 * @param WC_Order        $order        Order.
+	 * @param string          $date_type    Date type.
 	 * @return void
 	 */
 	private function update_order_items_meta( $subscription, $order, $date_type = 'next_payment' ) {
