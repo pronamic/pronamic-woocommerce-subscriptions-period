@@ -67,11 +67,11 @@ _Screenshot of the WooCommerce checkout page where a customer manually renews a 
 2. Background: Automatic renewal order via the Action Scheduler library.
 3. Backend: WooCommerce → Subscriptions → Edit Subscription → Order actions → Create pending renewal order
 
-# Accounting programs
+## Accounting programs
 
 Certain accounting programs offer the option to define a period for invoice lines. In this way, an accounting program can automatically distribute the amounts over a period. This can be used for “Prepaid expenses” and “Deferred revenue” on the balance sheet.
 
-## Moneybird
+### Moneybird
 
 Moneybird is an accounting program with the option to set a period per invoice line:
 
