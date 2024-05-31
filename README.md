@@ -28,7 +28,7 @@ $orders = \wc_get_orders(
 );
 
 foreach ( $orders as $order ) {
-	echo $order->get_id(), PHP_EOL;
+	echo 'Order: ', $order->get_id(), PHP_EOL;
 
 	foreach ( $order->get_items() as $item ) {
 		echo '- Start date: ', $item->get_meta( '_pronamic_start_date' ), PHP_EOL;
