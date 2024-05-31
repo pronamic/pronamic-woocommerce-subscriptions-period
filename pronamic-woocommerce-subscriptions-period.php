@@ -33,6 +33,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use WC_Order;
 use WC_Subscription;
+use WC_Subscriptions;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -48,6 +49,19 @@ final class Plugin {
 	 * @return void
 	 */
 	public function setup() {
+		\add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ] );
+	}
+
+	/**
+	 * Plugins loaded.
+	 *
+	 * @return void
+	 */
+	public function plugins_loaded() {
+		if ( ! \class_exists( WC_Subscriptions::class ) ) {
+			return;
+		}
+
 		\add_action( 'init', [ $this, 'init' ] );
 	}
 
