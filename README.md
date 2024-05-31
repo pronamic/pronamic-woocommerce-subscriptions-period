@@ -2,6 +2,41 @@
 
 This “Woo Subscriptions” add-on ensures that a period is saved with each subscription order. The “Woo Subscriptions” plugin itself does not store the subscription period in an order. Without this add-on, it is not clear to webshop owners and customers for what period the subscription order and associated payment was.
 
+## Order item meta
+
+Period is stored in the following order item meta:
+
+| Key                    | Description.       |
+| ---------------------- | ------------------ |
+| `_pronamic_start_date` | Period start date. |
+| `_pronamic_end_date`   | Period end date.   |
+
+## Usage
+
+```php
+$orders = \wc_get_orders(
+	[
+		'status'  => [
+			'wc-completed',
+			'wc-refunded',
+		],
+		'type'    => 'shop_order',
+		'limit'   => 10,
+		'orderby' => 'date',
+		'order'   => 'ASC',
+	]
+);
+
+foreach ( $orders as $order ) {
+	echo $order->get_id(), PHP_EOL;
+
+	foreach ( $order->get_items() as $item ) {
+		echo '- Start date: ', $item->get_meta( '_pronamic_start_date' ), PHP_EOL;
+		echo '- End date: ', $item->get_meta( '_pronamic_end_date' ), PHP_EOL;
+	}
+}
+```
+
 ## Screenshots
 
 ### WordPress admin dashboard
