@@ -42,6 +42,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Bootstrap.
  */
+add_action(
+	'plugins_loaded',
+	function () {
+		load_plugin_textdomain( 'pronamic-woocommerce-subscriptions-period', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); 
+	}
+);
+
 final class Plugin {
 	/**
 	 * Setup.
