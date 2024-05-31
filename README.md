@@ -4,9 +4,13 @@ This “Woo Subscriptions” add-on ensures that a period is saved with each sub
 
 ## Screenshots
 
+### WordPress admin dashboard
+
 ![Screenshot of the WooCommerce order detail page in the WordPress admin dashboard with the period visible per item.](documentation/wc-edit-order-item-with-period.png)
 
 _Screenshot of the WooCommerce order detail page in the WordPress admin dashboard with the period visible per item._
+
+### WooCommerce checkout page
 
 ![Screenshot of the WooCommerce checkout page where a customer manually renews a subscription (early) and the period is visible.](documentation/wc-checkout-order-summary-manual-early-renewal.png)
 
