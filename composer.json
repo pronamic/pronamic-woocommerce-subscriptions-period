@@ -1,0 +1,52 @@
+{
+	"name": "pronamic/wp-pronamic-woocommerce-subscriptions-period",
+	"description": "This “Woo Subscriptions” add-on ensures that a period is saved with each subscription order.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"pronamic",
+		"pronamic-pay",
+		"wordpress",
+		"wordpress-plugin"
+	],
+	"config": {
+		"allow-plugins": {
+			"roots/wordpress-core-installer": true,
+			"automattic/jetpack-autoloader": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"bamarni/composer-bin-plugin": true
+		},
+		"platform": {
+			"php": "8.1"
+		},
+		"platform-check": false,
+		"sort-packages": true,
+		"wp-slug": "pronamic-woocommerce-subscriptions-period"
+	},
+	"require": {
+		"php": ">=8.1",
+		"automattic/jetpack-autoloader": "^2.0 || ^3.0",
+		"pronamic/pronamic-wp-updater": "^1.0"
+	},
+	"require-dev": {
+		"pronamic/pronamic-cli": "^1.1",
+		"pronamic/wp-coding-standards": "^2.2"
+	},
+	"scripts": {
+		"phpcs": "vendor/bin/phpcs -s -v",
+		"build": "vendor/bin/pronamic wp-build",
+		"phpstan": "vendor/bin/phpstan analyse --memory-limit=-1",
+		"translate": [
+			"@build",
+			"rsync --recursive --delete --verbose ./build/project/languages/ ./languages/"
+		],
+		"version": [
+			"@build"
+		],
+		"release": [
+			"@build",
+			"vendor/bin/pronamic release-to-github",
+			"vendor/bin/pronamic release-to-pronamic"
+		]
+	}
+}
