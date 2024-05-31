@@ -13,6 +13,7 @@ namespace Pronamic\WooSubscriptionsPeriod;
 use DateTimeImmutable;
 use DateTimeZone;
 use WC_Order;
+use WC_Order_Item;
 use WC_Subscription;
 use WC_Subscriptions;
 
@@ -68,8 +69,8 @@ final class Plugin {
 	 * This filter function is called as soon as a WooCommerce product is added to the cart.
 	 * 
 	 * @link https://github.com/woocommerce/woocommerce/blob/7.7.0/plugins/woocommerce/includes/class-wc-cart.php#L1137-L1138
-	 * @param array $cart_item_data WooCommerce cart item data.
-	 * @return array
+	 * @param array<string, mixed> $cart_item_data WooCommerce cart item data.
+	 * @return array<string, mixed>
 	 */
 	public function woocommerce_add_cart_item_data( $cart_item_data ) {
 		/**
@@ -115,8 +116,9 @@ final class Plugin {
 	 * This filter function is called to get a list of cart item data + variations for display on the frontend.
 	 *
 	 * @link https://github.com/woocommerce/woocommerce/blob/7.7.0/plugins/woocommerce/includes/wc-template-functions.php#L3774-L3775
-	 * @param array $item_data Item data to display.
-	 * @param array $cart_item Cart item object.
+	 * @param array{'key': string, 'value': string} $item_data Item data to display.
+	 * @param array<string, string>                 $cart_item Cart item object.
+	 * @return array{'key': string, 'value': string}
 	 */
 	public function woocommerce_get_item_data( $item_data, $cart_item ) {
 		if ( \array_key_exists( '_pronamic_start_date', $cart_item ) ) {
@@ -150,9 +152,9 @@ final class Plugin {
 	 * This action function is called when order items are created from the cart.
 	 * 
 	 * @link https://github.com/woocommerce/woocommerce/blob/7.7.0/plugins/woocommerce/includes/class-wc-checkout.php#L544-L549
-	 * @param WC_Order_Item $item          WooCommerce order item.
-	 * @param string        $cart_item_key Cart item key.
-	 * @param array         $values        Cart item values.
+	 * @param WC_Order_Item         $item          WooCommerce order item.
+	 * @param string                $cart_item_key Cart item key.
+	 * @param array<string, string> $values        Cart item values.
 	 * @return void
 	 */
 	public function woocommerce_checkout_create_order_line_item( $item, $cart_item_key, $values ) {
@@ -210,11 +212,11 @@ final class Plugin {
 			case '_pronamic_start_date':
 				$start_date = new DateTimeImmutable( $meta->value, new DateTimeZone( 'UTC' ) );
 
-				return \wp_date( \get_option( 'date_format' ), $start_date->getTimestamp() );
+				return (string) \wp_date( \get_option( 'date_format' ), $start_date->getTimestamp() );
 			case '_pronamic_end_date':
 				$end_date = new DateTimeImmutable( $meta->value, new DateTimeZone( 'UTC' ) );
 
-				return \wp_date( \get_option( 'date_format' ), $end_date->getTimestamp() );
+				return (string) \wp_date( \get_option( 'date_format' ), $end_date->getTimestamp() );
 			default:
 				return $display_value;
 		}
@@ -233,9 +235,9 @@ final class Plugin {
 	 * from the WooCommerce subscription object.
 	 * 
 	 * @link https://github.com/Automattic/woocommerce-subscriptions-core/blob/7.1.1/includes/class-wc-subscriptions-checkout.php#L246-L247
-	 * @param WC_Subscription $subscription Subscription.
-	 * @param array           $posted_data  Posted data.
-	 * @param WC_Order        $order        Order.
+	 * @param WC_Subscription       $subscription Subscription.
+	 * @param array<string, string> $posted_data  Posted data.
+	 * @param WC_Order              $order        Order.
 	 * @return void
 	 */
 	public function woocommerce_checkout_create_subscription( $subscription, $posted_data, $order ) {
@@ -307,7 +309,7 @@ final class Plugin {
 	 * 
 	 * @param WC_Subscription $subscription Subscription.
 	 * @param string          $date_type    Date type.
-	 * @return object|null
+	 * @return Period|null
 	 */
 	private function get_period( $subscription, $date_type = 'next_payment' ) {
 		$timestamp_1 = $subscription->get_time( $date_type );
@@ -317,7 +319,7 @@ final class Plugin {
 		} 
 
 		$timestamp_2 = \wcs_add_time(
-			$subscription->get_billing_interval(),
+			(int) $subscription->get_billing_interval(),
 			$subscription->get_billing_period(),
 			$timestamp_1
 		);
@@ -325,9 +327,6 @@ final class Plugin {
 		$start_date = new DateTimeImmutable( '@' . $timestamp_1, new DateTimeZone( 'UTC' ) );
 		$end_date   = new DateTimeImmutable( '@' . $timestamp_2, new DateTimeZone( 'UTC' ) );
 
-		return (object) [
-			'start_date' => $start_date,
-			'end_date'   => $end_date,
-		];
+		return new Period( $start_date, $end_date );
 	}
 }
