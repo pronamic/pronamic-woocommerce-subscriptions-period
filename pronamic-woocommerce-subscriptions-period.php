@@ -20,7 +20,7 @@
  * Domain Path:          /languages/
  * License:              GPL-2.0-or-later
  * License URI:          https://www.gnu.org/licenses/gpl-2.0.html
- * Requires Plugins:     woocommerce
+ * Requires Plugins:     woocommerce, woocommerce-subscriptions
  * GitHub URI:           https://github.com/pronamic/pronamic-woocommerce-subscriptions-period
  * WC requires at least: 8.0
  * WC tested up to:      11.2
