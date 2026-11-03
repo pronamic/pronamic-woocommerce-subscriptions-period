@@ -1,6 +1,6 @@
 {
 	"name": "pronamic/wp-pronamic-woocommerce-subscriptions-period",
-	"description": "This “Woo Subscriptions” add-on ensures that a period is saved with each subscription order.",
+	"description": "This “WooCommerce Subscriptions” add-on ensures that a period is saved with each subscription order.",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
@@ -11,7 +11,7 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"Pronamic\\WooSubscriptionsPeriod\\": "psr-4/"
+			"Pronamic\\WooCommerceSubscriptionsPeriod\\": "psr-4/"
 		}
 	},
 	"authors": [
@@ -30,19 +30,24 @@
 	],
 	"repositories": [
 		{
+			"name": "wp-packages",
+			"type": "composer",
+			"url": "https://repo.wp-packages.org"
+		},
+		{
 			"type": "package",
 			"package": {
 				"name": "pronamic/woocommerce-subscriptions",
-				"version": "6.0.0",
+				"version": "9.3.0",
 				"type": "wordpress-plugin",
 				"dist": {
-					"url": "https://github.com/pronamic/woocommerce-subscriptions/releases/download/v6.0.0/woocommerce-subscriptions-6.0.0.zip",
+					"url": "https://github.com/pronamic/woocommerce-subscriptions/releases/download/v9.3.0/woocommerce-subscriptions.9.3.0.zip",
 					"type": "zip"
 				},
 				"source": {
 					"url": "https://github.com/pronamic/woocommerce-subscriptions",
 					"type": "github",
-					"reference": "tags/v6.0.0"
+					"reference": "tags/v9.3.0"
 				}
 			}
 		}
@@ -67,16 +72,17 @@
 		"pronamic/pronamic-wp-updater": "^1.0"
 	},
 	"require-dev": {
-		"php-stubs/woocommerce-stubs": "^10.0",
+		"php-stubs/woocommerce-stubs": "^11.2",
 		"phpstan/extension-installer": "^1.4",
 		"phpstan/phpstan": "^2.2",
-		"pronamic/woocommerce-subscriptions": "^6.0",
+		"pronamic/woocommerce-subscriptions": "^9.3",
 		"pronamic/wp-coding-standards": "^2.5",
 		"rector/rector": "^2.6",
 		"roots/wordpress-no-content": "^7.1",
 		"szepeviktor/phpstan-wordpress": "^2.0",
 		"wp-cli/dist-archive-command": "*",
-		"wp-cli/wp-cli-bundle": "*"
+		"wp-cli/wp-cli-bundle": "*",
+		"wp-plugin/woocommerce": "^11.2"
 	},
 	"extra": {
 		"installer-paths": {
@@ -84,6 +90,7 @@
 				"vendor:pronamic",
 				"vendor:solvebeam",
 				"vendor:wp-pay",
+				"vendor:wp-plugin",
 				"woocommerce/action-scheduler"
 			]
 		},

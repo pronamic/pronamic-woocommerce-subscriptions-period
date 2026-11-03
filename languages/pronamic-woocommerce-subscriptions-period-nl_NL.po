@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Pronamic period information for Woo Subscriptions 1.0.0\n"
+"Project-Id-Version: Pronamic period information for WooCommerce Subscriptions 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pronamic-woocommerce-subscriptions-period\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: \n"
@@ -15,8 +15,8 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: pronamic-woocommerce-subscriptions-period.php:11
-msgid "Pronamic period information for Woo Subscriptions"
-msgstr "Pronamic period information for Woo Subscriptions"
+msgid "Pronamic period information for WooCommerce Subscriptions"
+msgstr "Pronamic period information for WooCommerce Subscriptions"
 
 #. Plugin URI of the plugin
 #: pronamic-woocommerce-subscriptions-period.php:12
@@ -25,8 +25,8 @@ msgstr "https://www.pronamic.eu/plugins/pronamic-woocommerce-subscriptions-perio
 
 #. Description of the plugin
 #: pronamic-woocommerce-subscriptions-period.php:13
-msgid "This “Woo Subscriptions” add-on ensures that a period is saved with each subscription order."
-msgstr "Deze “Woo Subscriptions” add-on zorgt ervoor dat er bij elke abonnementsbestelling een periode wordt opgeslagen."
+msgid "This “WooCommerce Subscriptions” add-on ensures that a period is saved with each subscription order."
+msgstr "Deze “WooCommerce Subscriptions” add-on zorgt ervoor dat er bij elke abonnementsbestelling een periode wordt opgeslagen."
 
 #. Author of the plugin
 #: pronamic-woocommerce-subscriptions-period.php:17

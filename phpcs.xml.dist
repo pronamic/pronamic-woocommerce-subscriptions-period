@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<ruleset name="Pronamic period information for Woo Subscriptions">
+<ruleset name="Pronamic period information for WooCommerce Subscriptions">
 	<file>.</file>
 
 	<exclude-pattern type="relative">^blocks/*</exclude-pattern>

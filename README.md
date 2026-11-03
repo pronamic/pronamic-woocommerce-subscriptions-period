@@ -1,6 +1,6 @@
-# Pronamic period information for Woo Subscriptions
+# Pronamic period information for WooCommerce Subscriptions
 
-This “Woo Subscriptions” add-on ensures that a period is saved with each subscription order. The “Woo Subscriptions” plugin itself does not store the subscription period in an order. Without this add-on, it is not clear to webshop owners and customers for what period the subscription order and associated payment was.
+This “WooCommerce Subscriptions” add-on ensures that a period is saved with each subscription order. The “WooCommerce Subscriptions” plugin itself does not store the subscription period in an order. Without this add-on, it is not clear to webshop owners and customers for what period the subscription order and associated payment was.
 
 ## Table of contents
 
@@ -87,7 +87,7 @@ This plugin can make it easier to connect WooCommerce Subscriptions orders to yo
 - PHP 8.3+
 - WordPress 6.7+
 - WooCommerce
-- Woo Subscriptions
+- WooCommerce Subscriptions
 
 ## Development
 
