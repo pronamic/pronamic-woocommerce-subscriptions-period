@@ -9,7 +9,9 @@
 		"pronamic-pay",
 		"woo",
 		"woocommerce",
-		"woocommerce-subscriptions"
+		"woocommerce-subscriptions",
+		"wordpress",
+		"wordpress-plugin"
 	],
 	"homepage": "https://github.com/pronamic/pronamic-woocommerce-subscriptions-period#readme",
 	"repository": {
