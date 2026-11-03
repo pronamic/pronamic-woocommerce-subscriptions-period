@@ -61,8 +61,6 @@ final class Plugin {
 	 * @return void
 	 */
 	private function plugins_loaded(): void {
-		\load_plugin_textdomain( 'pronamic-woocommerce-subscriptions-period', false, \dirname( \plugin_basename( $this->plugin_file ) ) . '/languages' );
-
 		if ( ! \class_exists( WC_Subscriptions::class ) ) {
 			return;
 		}

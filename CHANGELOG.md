@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Modernized the plugin according to the SolveBeam WordPress Plugin Boilerplate.
-- Requires PHP 8.3 and WordPress 6.7 or higher.
+- Requires PHP 8.3 and WordPress 6.8 or higher.
+- Removed `load_plugin_textdomain()` call, WordPress 6.8+ loads translations just-in-time based on the `Text Domain` and `Domain Path` headers.
 - Moved PHP classes from `src/` to `psr-4/` and added `declare(strict_types=1);`.
 - `Plugin` is now a singleton (`Plugin::instance( __FILE__ )`) and uses first-class callable syntax for hooks.
 - `Period` is now a `readonly` class.

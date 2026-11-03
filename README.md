@@ -85,7 +85,7 @@ This plugin can make it easier to connect WooCommerce Subscriptions orders to yo
 ## Requirements
 
 - PHP 8.3+
-- WordPress 6.7+
+- WordPress 6.8+
 - WooCommerce
 - WooCommerce Subscriptions
 

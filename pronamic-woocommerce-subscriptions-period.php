@@ -12,7 +12,7 @@
  * Plugin URI:           https://www.pronamic.eu/plugins/pronamic-woocommerce-subscriptions-period/
  * Description:          This “WooCommerce Subscriptions” add-on ensures that a period is saved with each subscription order.
  * Version:              1.0.0
- * Requires at least:    6.7
+ * Requires at least:    6.8
  * Requires PHP:         8.3
  * Author:               Pronamic
  * Author URI:           https://www.pronamic.eu/
