@@ -13,6 +13,7 @@
 # Composer
 /vendor/
 /packages/
+/wp-content/
 /composer.lock
 
 # Ignore generated credentials from google-github-actions/auth

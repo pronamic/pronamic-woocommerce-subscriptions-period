@@ -24,3 +24,5 @@ phpstan.neon.dist
 /documentation/
 
 /node_modules/
+
+/wp-content/

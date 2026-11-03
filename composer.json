@@ -90,11 +90,7 @@
 	"extra": {
 		"installer-paths": {
 			"packages/{$vendor}/{$name}": [
-				"vendor:pronamic",
-				"vendor:solvebeam",
-				"vendor:wp-pay",
-				"vendor:wp-plugin",
-				"woocommerce/action-scheduler"
+				"pronamic/pronamic-wp-updater"
 			]
 		},
 		"wp-slug": "pronamic-woocommerce-subscriptions-period"

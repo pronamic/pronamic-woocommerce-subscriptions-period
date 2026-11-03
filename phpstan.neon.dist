@@ -6,4 +6,4 @@ parameters:
     bootstrapFiles:
         - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
     scanDirectories:
-        - packages/pronamic/woocommerce-subscriptions/
+        - wp-content/plugins/woocommerce-subscriptions/
