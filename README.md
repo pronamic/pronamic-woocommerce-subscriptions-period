@@ -10,6 +10,8 @@ This “Woo Subscriptions” add-on ensures that a period is saved with each sub
 - [Tested flows](#tested-flows)
 - [Accounting programs](#accounting-programs)
   - [Moneybird](#moneybird)
+- [Requirements](#requirements)
+- [Development](#development)
 - [Links](#links)
 
 ## Order item meta
@@ -79,6 +81,56 @@ Moneybird is an accounting program with the option to set a period per invoice l
 - https://www.moneybird.nl/blog/191-moneybird-preview-je-volledige-boekhouding-in-moneybird
 
 This plugin can make it easier to connect WooCommerce Subscriptions orders to your accounting in Moneybird.
+
+## Requirements
+
+- PHP 8.3+
+- WordPress 6.7+
+- WooCommerce
+- Woo Subscriptions
+
+## Development
+
+This plugin follows the [SolveBeam WordPress Plugin Boilerplate](https://github.com/solvebeam/solvebeam-wordpress-plugin-boilerplate) conventions.
+
+```sh
+composer install
+npm install
+```
+
+### Local environment (wp-env)
+
+```sh
+npx wp-env start
+npx wp-env stop
+```
+
+| Mount path | Source | Purpose |
+| --- | --- | --- |
+| `wp-content/plugins/pronamic-woocommerce-subscriptions-period-dev` | `./` | Live development (including dev files) |
+| `wp-content/plugins/pronamic-woocommerce-subscriptions-period` | `./build/pronamic-woocommerce-subscriptions-period/` | Built distribution version |
+
+### Build
+
+```sh
+composer run build
+```
+
+Copies the plugin (respecting `.distignore`) to `build/`, installs production-only Composer dependencies, generates the translation files and creates a distributable ZIP.
+
+### Translations
+
+```sh
+composer run make-pot
+```
+
+### Linting & analysis
+
+```sh
+composer run phpcs
+composer run phpstan
+composer run rector
+```
 
 ## Links
 

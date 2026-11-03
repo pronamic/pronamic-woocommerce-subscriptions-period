@@ -19,10 +19,12 @@
 	"bugs": {
 		"url": "https://github.com/pronamic/pronamic-woocommerce-subscriptions-period/issues"
 	},
+	"dependencies": {},
 	"devDependencies": {
-		"@wordpress/env": "^9.9.0",
-		"@wordpress/scripts": "^27.8.0"
+		"@wordpress/env": "^11.15.0",
+		"@wordpress/scripts": "^35.0.0"
 	},
+	"prettier": "@wordpress/prettier-config",
 	"scripts": {
 		"lint:pkg-json": "wp-scripts lint-pkg-json"
 	}

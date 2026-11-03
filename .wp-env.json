@@ -1,16 +1,22 @@
 {
 	"core": null,
+	"config": {
+		"SAVEQUERIES": true,
+		"WP_DEBUG_LOG": true,
+		"WPLANG": "nl_NL"
+	},
+	"phpVersion": "8.3",
 	"plugins": [
-		"pronamic/wp-env-quick-login",
+		"solvebeam/solvebeam-quick-login-for-wp-env",
 		"pronamic/woocommerce-subscriptions",
-		"https://downloads.wordpress.org/plugin/code-profiler.zip",
-		"https://downloads.wordpress.org/plugin/plugin-check.1.0.1.zip",
+		"https://downloads.wordpress.org/plugin/plugin-check.zip",
 		"https://downloads.wordpress.org/plugin/pronamic-client.zip",
 		"https://downloads.wordpress.org/plugin/query-monitor.zip",
 		"https://downloads.wordpress.org/plugin/woocommerce.zip"
 	],
 	"mappings": {
 		"wp-content/plugins/pronamic-woocommerce-subscriptions-period-dev": "./",
-		"wp-content/plugins/pronamic-woocommerce-subscriptions-period": "./build/project/"
-	}
+		"wp-content/plugins/pronamic-woocommerce-subscriptions-period": "./build/pronamic-woocommerce-subscriptions-period/"
+	},
+	"testsEnvironment": false
 }

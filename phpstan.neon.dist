@@ -1,8 +1,9 @@
 parameters:
-	level: 6
-	paths:
-		- src
-	bootstrapFiles:
-		- vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
-	scanDirectories:
-		- vendor/pronamic/woocommerce-subscriptions/
+    level: max
+    paths:
+        - psr-4/
+        - pronamic-woocommerce-subscriptions-period.php
+    bootstrapFiles:
+        - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+    scanDirectories:
+        - packages/pronamic/woocommerce-subscriptions/

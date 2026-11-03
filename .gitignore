@@ -1,11 +1,19 @@
+.DS_Store
+
 # Build
 /build/
 
-# Composer
-/vendor/
-
-# Packages
-/packages/
+# Blocks
+/blocks/
 
 # Node.js
 /node_modules/
+/package-lock.json
+
+# Composer
+/vendor/
+/packages/
+/composer.lock
+
+# Ignore generated credentials from google-github-actions/auth
+gha-creds-*.json
