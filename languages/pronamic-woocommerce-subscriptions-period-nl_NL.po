@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Pronamic period information for WooCommerce Subscriptions 1.0.0\n"
+"Project-Id-Version: Pronamic period information for WooCommerce Subscriptions 2.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pronamic-woocommerce-subscriptions-period\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: \n"
@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-05-31T12:34:22+00:00\n"
-"PO-Revision-Date: 2026-11-03T14:39:36+00:00\n"
+"PO-Revision-Date: 2026-11-03T15:05:46+00:00\n"
 "Language: nl_NL\n"
 "X-Generator: Poedit 3.4.4\n"
 "X-Domain: pronamic-woocommerce-subscriptions-period\n"
@@ -38,12 +38,12 @@ msgstr "Pronamic"
 msgid "https://www.pronamic.eu/"
 msgstr "https://www.pronamic.nl/"
 
-#: psr-4/Plugin.php:157
-#: psr-4/Plugin.php:204
+#: psr-4/Plugin.php:155
+#: psr-4/Plugin.php:202
 msgid "Start date"
 msgstr "Startdatum"
 
-#: psr-4/Plugin.php:164
-#: psr-4/Plugin.php:205
+#: psr-4/Plugin.php:162
+#: psr-4/Plugin.php:203
 msgid "End date"
 msgstr "Einddatum"

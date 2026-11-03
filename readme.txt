@@ -4,7 +4,7 @@ Tags: woocommerce, subscriptions, period
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.3
-Stable tag: 1.0.0
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,13 @@ The period is stored in the `_pronamic_start_date` and `_pronamic_end_date` orde
 2. Activate the plugin through the "Plugins" menu in WordPress
 
 == Changelog ==
+
+= 2.0.0 =
+* Requires PHP 8.3 and WordPress 6.8 or higher.
+* Requires the WooCommerce and WooCommerce Subscriptions plugins (`Requires Plugins` header).
+* Translations are now loaded just-in-time by WordPress.
+* Modernized the plugin code (strict types, readonly `Period` class, `Plugin` singleton).
+* Updated Jetpack Autoloader to 6.0.3 and Pronamic WordPress Updater to 1.0.4.
 
 = 1.0.0 =
 * Initial release.

@@ -1,6 +1,6 @@
 {
 	"name": "@pronamic/wp-pronamic-woocommerce-subscriptions-period",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "This “WooCommerce Subscriptions” add-on ensures that a period is saved with each subscription order.",
 	"author": "Pronamic",
 	"license": "GPL-2.0-or-later",
